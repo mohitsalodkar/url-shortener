@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>URL Analytics Dashboard</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+
+body{
+background:
+radial-gradient(circle at top right,#9333ea22,transparent 30%),
+radial-gradient(circle at bottom left,#7c3aed22,transparent 30%),
+#070816;
+
+color:white;
+font-family:'Poppins',sans-serif;
+}
+.sidebar{
+    width:240px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.sidebar a{
+position:relative;
+overflow:hidden;
+}
+
+.sidebar a::before{
+content:'';
+position:absolute;
+left:0;
+top:0;
+width:0;
+height:100%;
+background:linear-gradient(
+90deg,
+#7c3aed,
+transparent
+);
+transition:.4s;
+}
+
+.sidebar a:hover::before{
+width:100%;
+}
+
+.sidebar a span{
+position:relative;
+z-index:1;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.sidebar{
+width:260px;
+height:100vh;
+background:rgba(17,24,39,.9);
+backdrop-filter:blur(20px);
+border-right:1px solid rgba(168,85,247,.2);
+position:fixed;
+left:0;
+top:0;
+padding:25px;
+}
+
+.sidebar h2{
+color:#a855f7;
+font-weight:700;
+}
+
+.sidebar a{
+display:block;
+text-decoration:none;
+color:#d1d5db;
+padding:14px;
+margin-bottom:10px;
+border-radius:12px;
+transition:.3s;
+}
+
+.sidebar a:hover{
+background:rgba(168,85,247,.15);
+color:white;
+transform:translateX(5px);
+}
+
+.main-content{
+margin-left:280px;
+padding:30px;
+}
+
+.card,
+.table-card{
+background:rgba(255,255,255,.05);
+backdrop-filter:blur(15px);
+border:1px solid rgba(168,85,247,.15);
+border-radius:22px;
+color:white;
+box-shadow:0 0 25px rgba(168,85,247,.15);
+}
+
+.card:hover,
+.table-card:hover{
+box-shadow:0 0 35px rgba(168,85,247,.25);
+}
+
+.stats-number{
+font-size:42px;
+font-weight:700;
+color:#a855f7;
+}
+
+.table{
+color:white;
+}
+
+.table thead{
+background:#111827;
+}
+
+.table td,
+.table th{
+border-color:rgba(255,255,255,.08);
+}
+.form-control{
+background:#111827;
+border:1px solid #312e81;
+color:white;
+}
+
+.form-control:focus{
+background:#111827;
+color:white;
+border-color:#a855f7;
+box-shadow:0 0 15px rgba(168,85,247,.4);
+}
+
+.badge-click{
+    background:transparent;
+    color:black;
+    font-weight:700;
+    font-size:16px;
+    padding:0;
+}
+.btn{
+border-radius:12px;
+}
+
+@media(max-width:992px){
+
+.sidebar{
+width:100%;
+height:auto;
+position:relative;
+}
+
+.main-content{
+margin-left:0;
+}
+
+}
+
+
+
+.card-body small{
+    color:#9ca3af;
+    font-size:14px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+}
+
+.stats-number{
+    margin-top:10px;
+}
+
+.btn{
+    font-weight:600;
+}
+
+.table-card h4{
+    color:#a855f7;
+}
+
+footer{
+    color:#9ca3af;
+}
+
+
+</style>
+
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<div class="text-center mb-4">
+
+<h2>
+🚀 URLIFY PRO
+</h2>
+
+<p>
+Premium URL Analytics
+</p>
+
+</div>
+<p style="color:#9ca3af;font-size:14px;">
+    Spring Boot Analytics
+</p>
+
+<a href="/analytics">📊 Dashboard</a>
+
+<a href="/">➕ Create URL</a>
+
+<a href="/export">📥 Export CSV</a>
+
+
+</div>
+
+<div class="main-content">
+
+
+<div class="d-flex justify-content-between align-items-center flex-wrap mb-4">
+
+    <div>
+        <h1 class="fw-bold mb-1">
+            🚀 URLIFY Analytics Platform
+        </h1>
+
+        <p class="text-secondary mb-0">
+            Monitor clicks, generate QR codes,
+manage links and export analytics
+with a premium dashboard experience.
+        </p>
+    </div>
+
+    <div class="d-flex gap-2 mt-3 mt-md-0">
+
+        <a href="/"
+           class="btn btn-primary">
+            ➕ Create Link
+        </a>
+
+        <a href="/export"
+           class="btn btn-success">
+            📥 Export
+        </a>
+
+        <a href="/logout"
+           class="btn btn-danger">
+            🚪 Logout
+        </a>
+
+    </div>
+
+</div>
+
+    
+
+<div class="row g-4 mb-4">
+
+    <div class="col-lg-3 col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <small>Total URLs</small>
+                <div class="stats-number"
+                     th:text="${totalUrls}">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <small>Total Clicks</small>
+                <div class="stats-number"
+                     th:text="${totalClicks}">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <small>Active Links</small>
+                <div class="stats-number"
+                     th:text="${totalUrls}">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <small>Top URLs</small>
+                <div class="stats-number"
+                     th:text="${topUrls.size()}">
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    
+
+
+
+<div class="card mb-4">
+    <div class="card-body">
+
+        <h4>
+            🔥 Top 5 Most Clicked URLs
+        </h4>
+
+        <ol class="mt-3">
+
+            <li th:each="url : ${topUrls}"
+                class="mb-2">
+
+                <span class="fw-bold text-info"
+                      th:text="${url.shortCode}">
+                </span>
+
+                -
+
+                <strong class="text-warning"
+                        th:text="${url.clickCount}">
+                </strong>
+
+                clicks
+
+            </li>
+
+        </ol>
+
+    </div>
+</div>
+<h4 class="mb-4">
+    📈 Click Analytics
+</h4>
+
+<p class="text-secondary">
+    Performance overview of your shortened URLs
+</p>
+
+<div style="height:350px;">
+    <canvas id="clickChart"></canvas>
+</div>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+
+    <h4 class="mb-0">
+        🔗 All Shortened URLs
+    </h4>
+
+    <span class="text-secondary">
+        Manage • Copy • Delete • Generate QR
+    </span>
+
+</div>
+<div class="table-card">
+
+    <div class="d-flex justify-content-between mb-3">
+
+        <input
+                type="text"
+                id="searchInput"
+                class="form-control search-box w-50"
+                placeholder="🔍 Search URL..."
+                onkeyup="searchTable()">
+
+        <a href="/export"
+           class="btn btn-success">
+            Export CSV
+        </a>
+
+    </div>
+
+    <div class="table-responsive">
+
+        <table class="table table-hover align-middle">
+
+            <thead>
+
+            <tr>
+
+                <th>ID</th>
+                <th>Original URL</th>
+                <th>Short URL</th>
+                <th>Clicks</th>
+                <th>Created</th>
+                <th>Delete</th>
+                <th>Copy</th>
+                <th>QR</th>
+                
+
+            </tr>
+
+            </thead>
+
+            <tbody>
+
+            
+
+<tr th:each="url, stat : ${urls}">
+
+                <td th:text="${stat.count}"></td>
+
+<td style="max-width:300px;">
+    <a th:href="${url.originalUrl}"
+       target="_blank">
+
+        <span th:text="${#strings.abbreviate(url.originalUrl,50)}"></span>
+
+    </a>
+</td>
+
+                <td>
+
+                    <a class="url-link"
+                       th:href="@{'/' + ${url.shortCode}}"
+                       target="_blank">
+
+                        <span th:text="${url.shortCode}"></span>
+
+                    </a>
+
+                </td>
+
+                <td>
+
+                    <span class="badge-click"
+                          th:text="${url.clickCount}">
+                    </span>
+
+                </td>
+
+                <td th:text="${url.createdAt}"></td>
+
+                <td>
+
+                    <a th:href="@{'/delete/' + ${url.id}}"
+                       class="btn btn-outline-danger btn-sm">
+
+                        Delete
+
+                    </a>
+
+                </td>
+
+                <td>
+
+                    <button
+                            class="btn btn-outline-primary btn-sm"
+                            th:attr="onclick='copyUrl(\'http://localhost:8080/' + ${url.shortCode} + '\')'">
+
+                        Copy
+
+                    </button>
+
+                </td>
+                
+                
+                <td>
+    <a target="_blank"
+       th:href="@{'/qr?url=http://localhost:8080/' + ${url.shortCode}}"
+       class="btn btn-outline-success btn-sm">
+        QR
+    </a>
+</td>
+                
+         
+            </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+
+
+<script>
+
+function copyUrl(url){
+
+    navigator.clipboard.writeText(url);
+
+    alert("Copied: " + url);
+}
+
+function searchTable(){
+
+    let input =
+        document.getElementById("searchInput");
+
+    let filter =
+        input.value.toLowerCase();
+
+    let table =
+        document.querySelector("table");
+
+    let tr =
+        table.getElementsByTagName("tr");
+
+    for(let i = 1; i < tr.length; i++){
+
+        let txt =
+            tr[i].textContent.toLowerCase();
+
+        if(txt.indexOf(filter) > -1){
+
+            tr[i].style.display = "";
+
+        }else{
+
+            tr[i].style.display = "none";
+        }
+    }
+}
+</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script th:inline="javascript">
+
+let labels = /*[[${chartLabels}]]*/ [];
+let data = /*[[${chartData}]]*/ [];
+
+const canvas = document.getElementById('clickChart');
+
+if(canvas){
+
+    const ctx = canvas.getContext('2d');
+
+    new Chart(ctx, {
+
+        type: 'bar',
+
+        data: {
+
+            labels: labels,
+
+            datasets: [{
+
+                label: 'Clicks',
+
+                data: data,
+
+                backgroundColor: [
+                    '#4f46e5',
+                    '#10b981',
+                    '#f59e0b',
+                    '#ef4444',
+                    '#06b6d4'
+                ],
+
+                borderRadius: 10,
+
+                maxBarThickness: 60
+
+            }]
+
+        },
+
+        options: {
+
+            responsive: true,
+
+            maintainAspectRatio: false,
+
+            plugins: {
+
+                legend: {
+                    display: false
+                }
+
+            },
+
+            scales: {
+
+                y: {
+
+                    beginAtZero: true,
+
+                    ticks: {
+                        precision: 0
+                    }
+
+                }
+
+            }
+
+        }
+
+    });
+
+}
+
+
+
+</script>
+
+
+<footer class="text-center mt-5 mb-4">
+
+<hr style="
+border-color:rgba(168,85,247,.2);
+">
+
+<h5 style="color:#a855f7;">
+🚀 URLIFY PRO
+</h5>
+
+<p class="text-secondary">
+Advanced URL Shortener &
+Analytics Platform
+</p>
+
+<p class="text-secondary">
+Built with Spring Boot • MySQL • Thymeleaf
+</p>
+
+<p style="color:#a855f7;">
+© 2026 Mohit Salodkar
+</p>
+
+</footer>
+
+</body>
+</html>
