@@ -477,25 +477,32 @@ with a premium dashboard experience.
 
                 </td>
 
-                <td>
-
-                    <button
-                            class="btn btn-outline-primary btn-sm"
-                            th:attr="onclick='copyUrl(\'http://localhost:8080/' + ${url.shortCode} + '\')'">
-
-                        Copy
-
-                    </button>
-
-                </td>
                 
+
+                    <td>
+
+    <button
+            class="btn btn-outline-primary btn-sm"
+            th:attr="onclick='copyUrl(\'https://url-shortener-v71n.onrender.com/' + ${url.shortCode} + '\')'">
+
+        Copy
+
+    </button>
+
+</td>
+
+           
                 
-                <td>
+        <td>
+
     <a target="_blank"
-       th:href="@{'/qr?url=http://localhost:8080/' + ${url.shortCode}}"
+       th:href="@{'/qr?url=https://url-shortener-v71n.onrender.com/' + ${url.shortCode}}"
        class="btn btn-outline-success btn-sm">
+
         QR
+
     </a>
+
 </td>
                 
          
