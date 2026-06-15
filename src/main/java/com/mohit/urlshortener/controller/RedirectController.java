@@ -28,7 +28,6 @@ public class RedirectController {
 
     @GetMapping("/cache-test/{name}")
     public String cacheTest(@PathVariable String name) {
-
         return urlService.testCache(name);
     }
 
@@ -37,17 +36,28 @@ public class RedirectController {
             @PathVariable String shortCode,
             HttpServletResponse response) throws IOException {
 
-        Url url = urlService.getUrlByShortCode(shortCode);
+        shortCode = shortCode.trim();
+
+        System.out.println("SHORT CODE RECEIVED = " + shortCode);
+
+        Url url = urlRepository
+                .findByShortCode(shortCode)
+                .orElse(null);
+
+        System.out.println("URL FOUND = " + url);
 
         if (url != null) {
 
             url.setClickCount(url.getClickCount() + 1);
-
             urlRepository.save(url);
+
+            System.out.println("REDIRECTING TO = " + url.getOriginalUrl());
 
             response.sendRedirect(url.getOriginalUrl());
 
         } else {
+
+            System.out.println("SHORT URL NOT FOUND: " + shortCode);
 
             response.getWriter().write("Short URL Not Found");
         }
