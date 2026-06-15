@@ -40,8 +40,8 @@ public class UrlController {
                 loggedInUser);
 
         return new UrlResponse(
-                "http://localhost:8080/" +
-                url.getShortCode()
-        );
+        	    "https://url-shortener-v71n.onrender.com/" +
+        	    url.getShortCode()
+        	);
     }
 }
