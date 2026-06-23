@@ -1,40 +1,35 @@
 # 🔗 URL Shortener Web Application
 
-A full-stack URL Shortener web application built using **Java, Spring Boot, PostgreSQL, Redis, Spring Security, Docker, and Thymeleaf**. The application allows users to shorten long URLs, manage links securely, and improve performance using Redis caching.
-
----
+A URL Shortener web application developed using Java and Spring Boot that allows users to shorten long URLs and access them using unique short links. The project uses PostgreSQL for data storage, Redis for caching, Spring Security for authentication, and Docker for containerization.
 
 ## 🚀 Live Demo
 
-🔗 https://url-shortener-v71n.onrender.com/
-
----
+https://url-shortener-v71n.onrender.com/
 
 ## 📂 GitHub Repository
 
-🔗 https://github.com/mohitsalodkar/url-shortener
+https://github.com/mohitsalodkar/url-shortener
 
 ---
 
-## ✨ Features
+## 📌 Features
 
-* User Registration and Login
-* Spring Security Authentication
-* URL Shortening with Unique Short Codes
-* URL Redirection
-* PostgreSQL Database Integration
-* Redis Caching for Faster Access
-* Responsive User Interface using Thymeleaf
-* Docker Containerization
-* Production Deployment on Render
+* User registration and login using Spring Security
+* Generate unique short URLs
+* Redirect users using shortened links
+* Store URL data using PostgreSQL
+* Improve performance using Redis caching
+* Responsive user interface using Thymeleaf and Bootstrap
+* Docker support for containerized deployment
+* Deployed on Render Cloud
 
 ---
 
-## 🛠️ Tech Stack
+## 🛠️ Technologies Used
 
 ### Backend
 
-* Java 21
+* Java
 * Spring Boot
 * Spring Security
 * Spring Data JPA
@@ -43,8 +38,8 @@ A full-stack URL Shortener web application built using **Java, Spring Boot, Post
 ### Frontend
 
 * Thymeleaf
-* HTML5
-* CSS3
+* HTML
+* CSS
 * Bootstrap
 
 ### Database
@@ -55,42 +50,26 @@ A full-stack URL Shortener web application built using **Java, Spring Boot, Post
 
 * Redis
 
-### DevOps & Tools
+### Tools
 
 * Docker
 * Maven
-* Git & GitHub
-* Render Cloud
-
----
-
-## 📸 Screenshots
-
-Add your application screenshots here.
-
-```text
-screenshots/
-├── home.png
-├── login.png
-├── dashboard.png
-└── url-shortener.png
-```
+* Git
+* GitHub
+* Render
 
 ---
 
 ## ⚙️ Installation
 
-### Clone Repository
+Clone the repository:
 
 ```bash
 git clone https://github.com/mohitsalodkar/url-shortener.git
-
 cd url-shortener
 ```
 
-### Configure Database
-
-Update `application.properties`
+Update the database configuration in `application.properties`:
 
 ```properties
 spring.datasource.url=jdbc:postgresql://localhost:5432/urlshortener
@@ -98,13 +77,13 @@ spring.datasource.username=postgres
 spring.datasource.password=yourpassword
 ```
 
-### Run Application
+Run the project:
 
 ```bash
 ./mvnw spring-boot:run
 ```
 
-Application will run on:
+Open:
 
 ```text
 http://localhost:8080
@@ -112,15 +91,15 @@ http://localhost:8080
 
 ---
 
-## 🐳 Docker Support
+## 🐳 Docker
 
-Build Docker image:
+Build the image:
 
 ```bash
 docker build -t url-shortener .
 ```
 
-Run container:
+Run the container:
 
 ```bash
 docker run -p 8080:8080 url-shortener
@@ -137,35 +116,27 @@ src
 ├── repository
 ├── entity
 ├── config
-├── dto
 └── templates
 ```
 
 ---
 
-## 🔐 Authentication
+## 🔮 Future Improvements
 
-* User Registration
-* User Login
-* Password Encryption using BCrypt
-* Session Management using Spring Security
-
----
-
-## 📈 Future Enhancements
-
-* QR Code Generation
-* Click Analytics Dashboard
-* User Profile Management
-* Custom Short URLs
-* Expiring URLs
-* REST API Support
+* QR code generation
+* Click analytics dashboard
+* Custom short URLs
+* URL expiration feature
+* User dashboard
 
 ---
 
-## 👨‍💻 Author
+## 👨‍💻 Developed By
 
 **Mohit Salodkar**
+
+B.Tech CSE Student
+Priyadarshini College of Engineering, Nagpur
 
 📧 [mohitsalodkar24@gmail.com](mailto:mohitsalodkar24@gmail.com)
 
@@ -175,6 +146,4 @@ src
 
 ---
 
-## ⭐ Support
-
-If you found this project helpful, please consider giving it a ⭐ on GitHub.
+If you found this project useful, feel free to give it a ⭐ on GitHub.
